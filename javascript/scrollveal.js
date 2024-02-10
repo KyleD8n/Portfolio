@@ -73,3 +73,27 @@ ScrollReveal().reveal(".fa", {
   delay: 500,
   interval: 100,
 });
+
+const btn = document.getElementById("button");
+
+document
+  .getElementById("contactForm")
+  .addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    btn.textContent = "Sending...";
+
+    const serviceID = "default_service";
+    const templateID = "template_1k625dv";
+
+    emailjs.sendForm(serviceID, templateID, this).then(
+      () => {
+        btn.style.display = "none";
+        confirm("Sent!");
+      },
+      (err) => {
+        btn.value = "Send Email";
+        alert(JSON.stringify(err));
+      }
+    );
+  });
